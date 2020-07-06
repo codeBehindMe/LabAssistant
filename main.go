@@ -1,5 +1,5 @@
 /*
-   LabAssitant
+   LabAssistant
    Copyright (C) 2020  aarontillekeratne
 
    This program is free software: you can redistribute it and/or modify
@@ -26,5 +26,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Welcome to Lab Assitant")
+	fmt.Println("Welcome to Lab Assistant")
 }
