@@ -2,14 +2,14 @@ FROM golang:1.14
 
 WORKDIR /
 
-RUN mkdir app
+RUN mkdir assistant
 
-WORKDIR app
+WORKDIR assistant
 
 COPY . .
 
 ENV GO111MODULES=on
 
-RUN go build -o app main.go
+RUN go build -o assistant main.go
 
-ENTRYPOINT ["./app"]
+ENTRYPOINT ["./assistant"]
