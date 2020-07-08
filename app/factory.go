@@ -21,19 +21,25 @@
   Contact: github.com/codeBehindMe
 */
 
-package main
+package app
 
 import (
-	"com.github.com/codeBehindMe/LabAssistant/app"
-	"fmt"
-	"log"
+	"com.github.com/codeBehindMe/LabAssistant/api_server"
+	"errors"
+	"github.com/gorilla/mux"
+	"net/http"
 )
 
-func main() {
-	fmt.Println("Welcome to Lab Assistant")
-	appServer, err := app.NewApp("api_server")
-	if err != nil {
-		log.Fatalf("Error while creating app err:%v", err)
+func newHttpServer(r *mux.Router) *http.Server {
+	return &http.Server{
+		Handler: r,
 	}
-	log.Fatal(appServer.ListenAndServe())
+}
+
+func NewApp(appName string) (*http.Server, error) {
+	switch appName {
+	case "api_server":
+		return newHttpServer(api_server.GetApiServerRouter()), nil
+	}
+	return nil, errors.New("not a valid application")
 }
