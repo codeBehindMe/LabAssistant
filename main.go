@@ -25,15 +25,33 @@ package main
 
 import (
 	"com.github.com/codeBehindMe/LabAssistant/app"
+	"errors"
+	"flag"
 	"fmt"
 	"log"
+	"net/http"
 )
 
+var appPtr *string
+
+func createAppFromString(appString string) (*http.Server, error) {
+	switch appString {
+	case "api_server":
+		log.Printf("Starting %v", appString)
+		return app.NewApp(appString)
+	default:
+		flag.PrintDefaults()
+		return nil, errors.New(fmt.Sprintf("%v is not a valid app", appString))
+	}
+}
+
 func main() {
-	fmt.Println("Welcome to Lab Assistant")
-	appServer, err := app.NewApp("api_server")
+	appPtr = flag.String("app", "", "App name (Required)")
+	flag.Parse()
+
+	appServer, err := createAppFromString(*appPtr)
 	if err != nil {
-		log.Fatalf("Error while creating app err:%v", err)
+		log.Fatalf("Error while creating app: %v", err)
 	}
 	log.Fatal(appServer.ListenAndServe())
 }
