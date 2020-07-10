@@ -21,19 +21,21 @@
   Contact: github.com/codeBehindMe
 */
 
-package main
+package api_server
 
 import (
-	"com.github.com/codeBehindMe/LabAssistant/app"
 	"fmt"
-	"log"
+	"net/http"
 )
 
-func main() {
-	fmt.Println("Welcome to Lab Assistant")
-	appServer, err := app.NewApp("api_server")
-	if err != nil {
-		log.Fatalf("Error while creating app err:%v", err)
-	}
-	log.Fatal(appServer.ListenAndServe())
+func baseHandler(w http.ResponseWriter, r *http.Request) {
+	_, _ = fmt.Fprint(w, "Application: Api Server")
+}
+
+func getLabs(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func newLab(w http.ResponseWriter, r *http.Request) {
+
 }

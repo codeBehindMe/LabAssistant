@@ -21,19 +21,17 @@
   Contact: github.com/codeBehindMe
 */
 
-package main
+package api_server
 
-import (
-	"com.github.com/codeBehindMe/LabAssistant/app"
-	"fmt"
-	"log"
-)
+// API Server is the main service of Lab Assistant. The API server stands as
+// the control plane for Lab Assistant.
 
-func main() {
-	fmt.Println("Welcome to Lab Assistant")
-	appServer, err := app.NewApp("api_server")
-	if err != nil {
-		log.Fatalf("Error while creating app err:%v", err)
-	}
-	log.Fatal(appServer.ListenAndServe())
+import "github.com/gorilla/mux"
+
+func GetApiServerRouter() *mux.Router {
+	router := mux.NewRouter()
+
+	router.HandleFunc("/", baseHandler)
+
+	return router
 }
