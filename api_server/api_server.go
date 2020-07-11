@@ -26,7 +26,26 @@ package api_server
 // API Server is the main service of Lab Assistant. The API server stands as
 // the control plane for Lab Assistant.
 
-import "github.com/gorilla/mux"
+import (
+	"github.com/gorilla/mux"
+	"log"
+	"net/http"
+)
+
+type ApiServer struct {
+	addr   string
+	router *mux.Router
+}
+
+func New() ApiServer {
+	server := ApiServer{}
+
+	server.router = mux.NewRouter()
+	server.router.HandleFunc("/", baseHandler)
+	server.router.HandleFunc("/version", version)
+
+	return server
+}
 
 func GetApiServerRouter() *mux.Router {
 	router := mux.NewRouter()
@@ -35,4 +54,9 @@ func GetApiServerRouter() *mux.Router {
 	router.HandleFunc("/version", version)
 
 	return router
+}
+
+func (s ApiServer) Serve() {
+	httpServer := http.Server{Handler: s.router}
+	log.Fatal(httpServer.ListenAndServe())
 }

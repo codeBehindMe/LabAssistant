@@ -21,25 +21,8 @@
   Contact: github.com/codeBehindMe
 */
 
-package app
+package app_server
 
-import (
-	"com.github.com/codeBehindMe/LabAssistant/api_server"
-	"errors"
-	"github.com/gorilla/mux"
-	"net/http"
-)
-
-func newHttpServer(r *mux.Router) *http.Server {
-	return &http.Server{
-		Handler: r,
-	}
-}
-
-func NewApp(appName string) (*http.Server, error) {
-	switch appName {
-	case "api_server":
-		return newHttpServer(api_server.GetApiServerRouter()), nil
-	}
-	return nil, errors.New("not a valid application")
+type AppServer interface {
+	Serve()
 }

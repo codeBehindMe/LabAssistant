@@ -24,21 +24,22 @@
 package main
 
 import (
-	"com.github.com/codeBehindMe/LabAssistant/app"
+	"com.github.com/codeBehindMe/LabAssistant/api_server"
+	"com.github.com/codeBehindMe/LabAssistant/app_server"
 	"errors"
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
 )
 
 var appPtr *string
 
-func createAppFromString(appString string) (*http.Server, error) {
+func createAppFromString(appString string) (app_server.AppServer, error) {
 	switch appString {
 	case "api_server":
 		log.Printf("Starting %v", appString)
-		return app.NewApp(appString)
+		return api_server.New(), nil
+
 	default:
 		flag.PrintDefaults()
 		return nil, errors.New(fmt.Sprintf("%v is not a valid app", appString))
@@ -53,5 +54,5 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error while creating app: %v", err)
 	}
-	log.Fatal(appServer.ListenAndServe())
+	appServer.Serve()
 }
