@@ -32,6 +32,7 @@ func GetApiServerRouter() *mux.Router {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", baseHandler)
+	router.HandleFunc("/version", version)
 
 	return router
 }

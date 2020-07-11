@@ -21,31 +21,18 @@
   Contact: github.com/codeBehindMe
 */
 
-package api_server
+package utils
 
 import (
-	"com.github.com/codeBehindMe/LabAssistant/utils"
-	"fmt"
-	"log"
-	"net/http"
+	"io/ioutil"
+	"os"
 )
 
-func baseHandler(w http.ResponseWriter, r *http.Request) {
-	_, _ = fmt.Fprint(w, "Application: Api Server")
-}
-
-func version(w http.ResponseWriter, r *http.Request) {
-	version, err := utils.ReadFileToString("api_server/VERSION")
+func ReadFileToString(pathToFile string) (string, error) {
+	f, err := os.Open(pathToFile)
 	if err != nil {
-		log.Fatalf("Error occured: %v", err)
+		return "", err
 	}
-	_, _ = fmt.Fprint(w, version)
-}
-
-func getLabs(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func newLab(w http.ResponseWriter, r *http.Request) {
-
+	b, err := ioutil.ReadAll(f)
+	return string(b), nil
 }
