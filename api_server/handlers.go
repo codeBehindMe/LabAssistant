@@ -24,12 +24,22 @@
 package api_server
 
 import (
+	"com.github.com/codeBehindMe/LabAssistant/utils"
 	"fmt"
+	"log"
 	"net/http"
 )
 
 func baseHandler(w http.ResponseWriter, r *http.Request) {
 	_, _ = fmt.Fprint(w, "Application: Api Server")
+}
+
+func version(w http.ResponseWriter, r *http.Request) {
+	version, err := utils.ReadFileToString("api_server/VERSION")
+	if err != nil {
+		log.Fatalf("Error occured: %v", err)
+	}
+	_, _ = fmt.Fprint(w, version)
 }
 
 func getLabs(w http.ResponseWriter, r *http.Request) {
