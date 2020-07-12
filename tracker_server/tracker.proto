@@ -1,0 +1,29 @@
+syntax = "proto3";
+package tracker_server;
+
+option go_package = "github.com/codeBehindMe/LabAssistant/tracker_server";
+
+message Lab{
+  string name = 1;
+}
+
+message RegisteredLab{
+  string name = 1;
+  repeated string componentNames = 2;
+}
+
+message SuccessfulOperation{
+  int32 code = 1;
+}
+
+message ServiceVersionInfo{
+  string version = 1;
+}
+
+message Empty{}
+
+service TrackerService{
+  rpc GetServiceVersion(Empty) returns (ServiceVersionInfo){};
+  rpc RegisterLabCreation(Lab) returns (SuccessfulOperation){};
+  rpc GetRegisteredLabs(Empty) returns (stream Lab){};
+}

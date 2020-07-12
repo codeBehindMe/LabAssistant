@@ -26,6 +26,7 @@ package main
 import (
 	"com.github.com/codeBehindMe/LabAssistant/api_server"
 	"com.github.com/codeBehindMe/LabAssistant/app_server"
+	"com.github.com/codeBehindMe/LabAssistant/tracker_server"
 	"errors"
 	"flag"
 	"fmt"
@@ -39,7 +40,9 @@ func createAppFromString(appString string) (app_server.AppServer, error) {
 	case "api_server":
 		log.Printf("Starting %v", appString)
 		return api_server.New(), nil
-
+	case "tracker":
+		log.Printf("Starting %v", appString)
+		return tracker_server.New(":9000"), nil
 	default:
 		flag.PrintDefaults()
 		return nil, errors.New(fmt.Sprintf("%v is not a valid app", appString))
