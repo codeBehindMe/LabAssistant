@@ -35,7 +35,7 @@ func baseHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func version(w http.ResponseWriter, r *http.Request) {
-	version, err := utils.ReadFileToString("api_server/VERSION")
+	version, err := utils.ReadFileToString("VERSION")
 	if err != nil {
 		log.Fatalf("Error occured: %v", err)
 	}
