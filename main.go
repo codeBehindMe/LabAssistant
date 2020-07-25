@@ -25,7 +25,7 @@ package main
 
 import (
 	"com.github.com/codeBehindMe/LabAssistant/api_server"
-	"com.github.com/codeBehindMe/LabAssistant/app_server"
+	"com.github.com/codeBehindMe/LabAssistant/server"
 	"errors"
 	"flag"
 	"fmt"
@@ -34,7 +34,7 @@ import (
 
 var appPtr *string
 
-func createAppFromString(appString string) (app_server.AppServer, error) {
+func createAppFromString(appString string) (server.Server, error) {
 	switch appString {
 	case "api_server":
 		log.Printf("Starting %v", appString)

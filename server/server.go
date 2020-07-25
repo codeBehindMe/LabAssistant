@@ -21,8 +21,8 @@
   Contact: github.com/codeBehindMe
 */
 
-package app_server
+package server
 
-type AppServer interface {
+type Server interface {
 	Serve()
 }
