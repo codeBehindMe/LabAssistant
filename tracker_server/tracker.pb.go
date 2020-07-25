@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.25.0
 // 	protoc        v3.12.3
-// source: tracker.proto
+// source: tracker_server/tracker.proto
 
 package tracker_server
 
@@ -29,32 +29,32 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type Lab struct {
+type RegisteredLab struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name       string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Components []string `protobuf:"bytes,2,rep,name=components,proto3" json:"components,omitempty"`
+	Name           string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	ComponentNames []string `protobuf:"bytes,2,rep,name=componentNames,proto3" json:"componentNames,omitempty"`
 }
 
-func (x *Lab) Reset() {
-	*x = Lab{}
+func (x *RegisteredLab) Reset() {
+	*x = RegisteredLab{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tracker_proto_msgTypes[0]
+		mi := &file_tracker_server_tracker_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *Lab) String() string {
+func (x *RegisteredLab) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Lab) ProtoMessage() {}
+func (*RegisteredLab) ProtoMessage() {}
 
-func (x *Lab) ProtoReflect() protoreflect.Message {
-	mi := &file_tracker_proto_msgTypes[0]
+func (x *RegisteredLab) ProtoReflect() protoreflect.Message {
+	mi := &file_tracker_server_tracker_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -65,23 +65,117 @@ func (x *Lab) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Lab.ProtoReflect.Descriptor instead.
-func (*Lab) Descriptor() ([]byte, []int) {
-	return file_tracker_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use RegisteredLab.ProtoReflect.Descriptor instead.
+func (*RegisteredLab) Descriptor() ([]byte, []int) {
+	return file_tracker_server_tracker_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Lab) GetName() string {
+func (x *RegisteredLab) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *Lab) GetComponents() []string {
+func (x *RegisteredLab) GetComponentNames() []string {
 	if x != nil {
-		return x.Components
+		return x.ComponentNames
 	}
 	return nil
+}
+
+type RegisterLabRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *RegisterLabRequest) Reset() {
+	*x = RegisterLabRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tracker_server_tracker_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RegisterLabRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterLabRequest) ProtoMessage() {}
+
+func (x *RegisterLabRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_tracker_server_tracker_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterLabRequest.ProtoReflect.Descriptor instead.
+func (*RegisterLabRequest) Descriptor() ([]byte, []int) {
+	return file_tracker_server_tracker_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *RegisterLabRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type RegisterLabResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code int32 `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+}
+
+func (x *RegisterLabResponse) Reset() {
+	*x = RegisterLabResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_tracker_server_tracker_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RegisterLabResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterLabResponse) ProtoMessage() {}
+
+func (x *RegisterLabResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_tracker_server_tracker_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterLabResponse.ProtoReflect.Descriptor instead.
+func (*RegisterLabResponse) Descriptor() ([]byte, []int) {
+	return file_tracker_server_tracker_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RegisterLabResponse) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
 }
 
 type SuccessfulOperation struct {
@@ -95,7 +189,7 @@ type SuccessfulOperation struct {
 func (x *SuccessfulOperation) Reset() {
 	*x = SuccessfulOperation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tracker_proto_msgTypes[1]
+		mi := &file_tracker_server_tracker_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -108,7 +202,7 @@ func (x *SuccessfulOperation) String() string {
 func (*SuccessfulOperation) ProtoMessage() {}
 
 func (x *SuccessfulOperation) ProtoReflect() protoreflect.Message {
-	mi := &file_tracker_proto_msgTypes[1]
+	mi := &file_tracker_server_tracker_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -121,7 +215,7 @@ func (x *SuccessfulOperation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SuccessfulOperation.ProtoReflect.Descriptor instead.
 func (*SuccessfulOperation) Descriptor() ([]byte, []int) {
-	return file_tracker_proto_rawDescGZIP(), []int{1}
+	return file_tracker_server_tracker_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SuccessfulOperation) GetCode() int32 {
@@ -131,7 +225,7 @@ func (x *SuccessfulOperation) GetCode() int32 {
 	return 0
 }
 
-type ServiceVersionInfo struct {
+type ServiceVersionResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -139,23 +233,23 @@ type ServiceVersionInfo struct {
 	Version string `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`
 }
 
-func (x *ServiceVersionInfo) Reset() {
-	*x = ServiceVersionInfo{}
+func (x *ServiceVersionResponse) Reset() {
+	*x = ServiceVersionResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tracker_proto_msgTypes[2]
+		mi := &file_tracker_server_tracker_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *ServiceVersionInfo) String() string {
+func (x *ServiceVersionResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ServiceVersionInfo) ProtoMessage() {}
+func (*ServiceVersionResponse) ProtoMessage() {}
 
-func (x *ServiceVersionInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_tracker_proto_msgTypes[2]
+func (x *ServiceVersionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_tracker_server_tracker_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -166,41 +260,41 @@ func (x *ServiceVersionInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ServiceVersionInfo.ProtoReflect.Descriptor instead.
-func (*ServiceVersionInfo) Descriptor() ([]byte, []int) {
-	return file_tracker_proto_rawDescGZIP(), []int{2}
+// Deprecated: Use ServiceVersionResponse.ProtoReflect.Descriptor instead.
+func (*ServiceVersionResponse) Descriptor() ([]byte, []int) {
+	return file_tracker_server_tracker_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *ServiceVersionInfo) GetVersion() string {
+func (x *ServiceVersionResponse) GetVersion() string {
 	if x != nil {
 		return x.Version
 	}
 	return ""
 }
 
-type Empty struct {
+type EmptyRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Empty) Reset() {
-	*x = Empty{}
+func (x *EmptyRequest) Reset() {
+	*x = EmptyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_tracker_proto_msgTypes[3]
+		mi := &file_tracker_server_tracker_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *Empty) String() string {
+func (x *EmptyRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Empty) ProtoMessage() {}
+func (*EmptyRequest) ProtoMessage() {}
 
-func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_tracker_proto_msgTypes[3]
+func (x *EmptyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_tracker_server_tracker_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -211,74 +305,87 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Empty.ProtoReflect.Descriptor instead.
-func (*Empty) Descriptor() ([]byte, []int) {
-	return file_tracker_proto_rawDescGZIP(), []int{3}
+// Deprecated: Use EmptyRequest.ProtoReflect.Descriptor instead.
+func (*EmptyRequest) Descriptor() ([]byte, []int) {
+	return file_tracker_server_tracker_proto_rawDescGZIP(), []int{5}
 }
 
-var File_tracker_proto protoreflect.FileDescriptor
+var File_tracker_server_tracker_proto protoreflect.FileDescriptor
 
-var file_tracker_proto_rawDesc = []byte{
-	0x0a, 0x0d, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x0e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x22,
-	0x39, 0x0a, 0x03, 0x4c, 0x61, 0x62, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x63, 0x6f,
-	0x6d, 0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0a,
-	0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x73, 0x22, 0x29, 0x0a, 0x13, 0x53, 0x75,
-	0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x04, 0x63, 0x6f, 0x64, 0x65, 0x22, 0x2e, 0x0a, 0x12, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x0a, 0x07, 0x76,
-	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x76, 0x65,
-	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xfa,
-	0x01, 0x0a, 0x0e, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x12, 0x50, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x56,
-	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x15, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72,
-	0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x22, 0x2e,
-	0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x53,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66,
-	0x6f, 0x22, 0x00, 0x12, 0x51, 0x0a, 0x13, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x4c,
-	0x61, 0x62, 0x43, 0x72, 0x65, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x13, 0x2e, 0x74, 0x72, 0x61,
-	0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x4c, 0x61, 0x62, 0x1a,
-	0x23, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
-	0x2e, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x70, 0x65, 0x72, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x22, 0x00, 0x12, 0x43, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x52, 0x65, 0x67,
-	0x69, 0x73, 0x74, 0x65, 0x72, 0x65, 0x64, 0x4c, 0x61, 0x62, 0x73, 0x12, 0x15, 0x2e, 0x74, 0x72,
-	0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x1a, 0x13, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72,
-	0x76, 0x65, 0x72, 0x2e, 0x4c, 0x61, 0x62, 0x22, 0x00, 0x30, 0x01, 0x42, 0x35, 0x5a, 0x33, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x64, 0x65, 0x42, 0x65,
-	0x68, 0x69, 0x6e, 0x64, 0x4d, 0x65, 0x2f, 0x4c, 0x61, 0x62, 0x41, 0x73, 0x73, 0x69, 0x73, 0x74,
-	0x61, 0x6e, 0x74, 0x2f, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
-	0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+var file_tracker_server_tracker_proto_rawDesc = []byte{
+	0x0a, 0x1c, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72,
+	0x2f, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0e,
+	0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x22, 0x4b,
+	0x0a, 0x0d, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x65, 0x64, 0x4c, 0x61, 0x62, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74,
+	0x4e, 0x61, 0x6d, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6d,
+	0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x73, 0x22, 0x28, 0x0a, 0x12, 0x52,
+	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x4c, 0x61, 0x62, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x29, 0x0a, 0x13, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65,
+	0x72, 0x4c, 0x61, 0x62, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04,
+	0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65,
+	0x22, 0x29, 0x0a, 0x13, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x70,
+	0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x22, 0x32, 0x0a, 0x16, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22,
+	0x0e, 0x0a, 0x0c, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x32,
+	0xa5, 0x02, 0x0a, 0x0e, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x12, 0x5b, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65,
+	0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x56, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x60, 0x0a, 0x13, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x4c, 0x61, 0x62, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x22, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
+	0x4c, 0x61, 0x62, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x74, 0x72, 0x61,
+	0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x67, 0x69,
+	0x73, 0x74, 0x65, 0x72, 0x4c, 0x61, 0x62, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x00, 0x12, 0x54, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
+	0x65, 0x64, 0x4c, 0x61, 0x62, 0x73, 0x12, 0x1c, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72,
+	0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x65, 0x64,
+	0x4c, 0x61, 0x62, 0x22, 0x00, 0x30, 0x01, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x6f, 0x64, 0x65, 0x42, 0x65, 0x68, 0x69, 0x6e, 0x64,
+	0x4d, 0x65, 0x2f, 0x4c, 0x61, 0x62, 0x41, 0x73, 0x73, 0x69, 0x73, 0x74, 0x61, 0x6e, 0x74, 0x2f,
+	0x74, 0x72, 0x61, 0x63, 0x6b, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_tracker_proto_rawDescOnce sync.Once
-	file_tracker_proto_rawDescData = file_tracker_proto_rawDesc
+	file_tracker_server_tracker_proto_rawDescOnce sync.Once
+	file_tracker_server_tracker_proto_rawDescData = file_tracker_server_tracker_proto_rawDesc
 )
 
-func file_tracker_proto_rawDescGZIP() []byte {
-	file_tracker_proto_rawDescOnce.Do(func() {
-		file_tracker_proto_rawDescData = protoimpl.X.CompressGZIP(file_tracker_proto_rawDescData)
+func file_tracker_server_tracker_proto_rawDescGZIP() []byte {
+	file_tracker_server_tracker_proto_rawDescOnce.Do(func() {
+		file_tracker_server_tracker_proto_rawDescData = protoimpl.X.CompressGZIP(file_tracker_server_tracker_proto_rawDescData)
 	})
-	return file_tracker_proto_rawDescData
+	return file_tracker_server_tracker_proto_rawDescData
 }
 
-var file_tracker_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_tracker_proto_goTypes = []interface{}{
-	(*Lab)(nil),                 // 0: tracker_server.Lab
-	(*SuccessfulOperation)(nil), // 1: tracker_server.SuccessfulOperation
-	(*ServiceVersionInfo)(nil),  // 2: tracker_server.ServiceVersionInfo
-	(*Empty)(nil),               // 3: tracker_server.Empty
+var file_tracker_server_tracker_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_tracker_server_tracker_proto_goTypes = []interface{}{
+	(*RegisteredLab)(nil),          // 0: tracker_server.RegisteredLab
+	(*RegisterLabRequest)(nil),     // 1: tracker_server.RegisterLabRequest
+	(*RegisterLabResponse)(nil),    // 2: tracker_server.RegisterLabResponse
+	(*SuccessfulOperation)(nil),    // 3: tracker_server.SuccessfulOperation
+	(*ServiceVersionResponse)(nil), // 4: tracker_server.ServiceVersionResponse
+	(*EmptyRequest)(nil),           // 5: tracker_server.EmptyRequest
 }
-var file_tracker_proto_depIdxs = []int32{
-	3, // 0: tracker_server.TrackerService.GetServiceVersion:input_type -> tracker_server.Empty
-	0, // 1: tracker_server.TrackerService.RegisterLabCreation:input_type -> tracker_server.Lab
-	3, // 2: tracker_server.TrackerService.GetRegisteredLabs:input_type -> tracker_server.Empty
-	2, // 3: tracker_server.TrackerService.GetServiceVersion:output_type -> tracker_server.ServiceVersionInfo
-	1, // 4: tracker_server.TrackerService.RegisterLabCreation:output_type -> tracker_server.SuccessfulOperation
-	0, // 5: tracker_server.TrackerService.GetRegisteredLabs:output_type -> tracker_server.Lab
+var file_tracker_server_tracker_proto_depIdxs = []int32{
+	5, // 0: tracker_server.TrackerService.GetServiceVersion:input_type -> tracker_server.EmptyRequest
+	1, // 1: tracker_server.TrackerService.RegisterLabCreation:input_type -> tracker_server.RegisterLabRequest
+	5, // 2: tracker_server.TrackerService.GetRegisteredLabs:input_type -> tracker_server.EmptyRequest
+	4, // 3: tracker_server.TrackerService.GetServiceVersion:output_type -> tracker_server.ServiceVersionResponse
+	2, // 4: tracker_server.TrackerService.RegisterLabCreation:output_type -> tracker_server.RegisterLabResponse
+	0, // 5: tracker_server.TrackerService.GetRegisteredLabs:output_type -> tracker_server.RegisteredLab
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -286,14 +393,14 @@ var file_tracker_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_tracker_proto_init() }
-func file_tracker_proto_init() {
-	if File_tracker_proto != nil {
+func init() { file_tracker_server_tracker_proto_init() }
+func file_tracker_server_tracker_proto_init() {
+	if File_tracker_server_tracker_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_tracker_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Lab); i {
+		file_tracker_server_tracker_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RegisteredLab); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -304,7 +411,31 @@ func file_tracker_proto_init() {
 				return nil
 			}
 		}
-		file_tracker_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_tracker_server_tracker_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RegisterLabRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tracker_server_tracker_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RegisterLabResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_tracker_server_tracker_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SuccessfulOperation); i {
 			case 0:
 				return &v.state
@@ -316,8 +447,8 @@ func file_tracker_proto_init() {
 				return nil
 			}
 		}
-		file_tracker_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ServiceVersionInfo); i {
+		file_tracker_server_tracker_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ServiceVersionResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -328,8 +459,8 @@ func file_tracker_proto_init() {
 				return nil
 			}
 		}
-		file_tracker_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Empty); i {
+		file_tracker_server_tracker_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EmptyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -345,20 +476,20 @@ func file_tracker_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_tracker_proto_rawDesc,
+			RawDescriptor: file_tracker_server_tracker_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_tracker_proto_goTypes,
-		DependencyIndexes: file_tracker_proto_depIdxs,
-		MessageInfos:      file_tracker_proto_msgTypes,
+		GoTypes:           file_tracker_server_tracker_proto_goTypes,
+		DependencyIndexes: file_tracker_server_tracker_proto_depIdxs,
+		MessageInfos:      file_tracker_server_tracker_proto_msgTypes,
 	}.Build()
-	File_tracker_proto = out.File
-	file_tracker_proto_rawDesc = nil
-	file_tracker_proto_goTypes = nil
-	file_tracker_proto_depIdxs = nil
+	File_tracker_server_tracker_proto = out.File
+	file_tracker_server_tracker_proto_rawDesc = nil
+	file_tracker_server_tracker_proto_goTypes = nil
+	file_tracker_server_tracker_proto_depIdxs = nil
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -373,9 +504,9 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TrackerServiceClient interface {
-	GetServiceVersion(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ServiceVersionInfo, error)
-	RegisterLabCreation(ctx context.Context, in *Lab, opts ...grpc.CallOption) (*SuccessfulOperation, error)
-	GetRegisteredLabs(ctx context.Context, in *Empty, opts ...grpc.CallOption) (TrackerService_GetRegisteredLabsClient, error)
+	GetServiceVersion(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ServiceVersionResponse, error)
+	RegisterLabCreation(ctx context.Context, in *RegisterLabRequest, opts ...grpc.CallOption) (*RegisterLabResponse, error)
+	GetRegisteredLabs(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (TrackerService_GetRegisteredLabsClient, error)
 }
 
 type trackerServiceClient struct {
@@ -386,8 +517,8 @@ func NewTrackerServiceClient(cc grpc.ClientConnInterface) TrackerServiceClient {
 	return &trackerServiceClient{cc}
 }
 
-func (c *trackerServiceClient) GetServiceVersion(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ServiceVersionInfo, error) {
-	out := new(ServiceVersionInfo)
+func (c *trackerServiceClient) GetServiceVersion(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ServiceVersionResponse, error) {
+	out := new(ServiceVersionResponse)
 	err := c.cc.Invoke(ctx, "/tracker_server.TrackerService/GetServiceVersion", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -395,8 +526,8 @@ func (c *trackerServiceClient) GetServiceVersion(ctx context.Context, in *Empty,
 	return out, nil
 }
 
-func (c *trackerServiceClient) RegisterLabCreation(ctx context.Context, in *Lab, opts ...grpc.CallOption) (*SuccessfulOperation, error) {
-	out := new(SuccessfulOperation)
+func (c *trackerServiceClient) RegisterLabCreation(ctx context.Context, in *RegisterLabRequest, opts ...grpc.CallOption) (*RegisterLabResponse, error) {
+	out := new(RegisterLabResponse)
 	err := c.cc.Invoke(ctx, "/tracker_server.TrackerService/RegisterLabCreation", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -404,7 +535,7 @@ func (c *trackerServiceClient) RegisterLabCreation(ctx context.Context, in *Lab,
 	return out, nil
 }
 
-func (c *trackerServiceClient) GetRegisteredLabs(ctx context.Context, in *Empty, opts ...grpc.CallOption) (TrackerService_GetRegisteredLabsClient, error) {
+func (c *trackerServiceClient) GetRegisteredLabs(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (TrackerService_GetRegisteredLabsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_TrackerService_serviceDesc.Streams[0], "/tracker_server.TrackerService/GetRegisteredLabs", opts...)
 	if err != nil {
 		return nil, err
@@ -420,7 +551,7 @@ func (c *trackerServiceClient) GetRegisteredLabs(ctx context.Context, in *Empty,
 }
 
 type TrackerService_GetRegisteredLabsClient interface {
-	Recv() (*Lab, error)
+	Recv() (*RegisteredLab, error)
 	grpc.ClientStream
 }
 
@@ -428,8 +559,8 @@ type trackerServiceGetRegisteredLabsClient struct {
 	grpc.ClientStream
 }
 
-func (x *trackerServiceGetRegisteredLabsClient) Recv() (*Lab, error) {
-	m := new(Lab)
+func (x *trackerServiceGetRegisteredLabsClient) Recv() (*RegisteredLab, error) {
+	m := new(RegisteredLab)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -438,31 +569,31 @@ func (x *trackerServiceGetRegisteredLabsClient) Recv() (*Lab, error) {
 
 // TrackerServiceServer is the server API for TrackerService service.
 type TrackerServiceServer interface {
-	GetServiceVersion(context.Context, *Empty) (*ServiceVersionInfo, error)
-	RegisterLabCreation(context.Context, *Lab) (*SuccessfulOperation, error)
-	GetRegisteredLabs(*Empty, TrackerService_GetRegisteredLabsServer) error
+	GetServiceVersion(context.Context, *EmptyRequest) (*ServiceVersionResponse, error)
+	RegisterLabCreation(context.Context, *RegisterLabRequest) (*RegisterLabResponse, error)
+	GetRegisteredLabs(*EmptyRequest, TrackerService_GetRegisteredLabsServer) error
 }
 
 // UnimplementedTrackerServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedTrackerServiceServer struct {
 }
 
-func (*UnimplementedTrackerServiceServer) GetServiceVersion(context.Context, *Empty) (*ServiceVersionInfo, error) {
+func (*UnimplementedTrackerServiceServer) GetServiceVersion(context.Context, *EmptyRequest) (*ServiceVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceVersion not implemented")
 }
-func (*UnimplementedTrackerServiceServer) RegisterLabCreation(context.Context, *Lab) (*SuccessfulOperation, error) {
+func (*UnimplementedTrackerServiceServer) RegisterLabCreation(context.Context, *RegisterLabRequest) (*RegisterLabResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterLabCreation not implemented")
 }
-func (*UnimplementedTrackerServiceServer) GetRegisteredLabs(*Empty, TrackerService_GetRegisteredLabsServer) error {
+func (*UnimplementedTrackerServiceServer) GetRegisteredLabs(*EmptyRequest, TrackerService_GetRegisteredLabsServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetRegisteredLabs not implemented")
 }
 
-func RegisterTrackerServiceServer(s *grpc.Server, srv TrackerServiceServer) {
+func RegisterTrackerServiceServer(s *grpc.Server, srv *TrackerServer) {
 	s.RegisterService(&_TrackerService_serviceDesc, srv)
 }
 
 func _TrackerService_GetServiceVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+	in := new(EmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -474,13 +605,13 @@ func _TrackerService_GetServiceVersion_Handler(srv interface{}, ctx context.Cont
 		FullMethod: "/tracker_server.TrackerService/GetServiceVersion",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TrackerServiceServer).GetServiceVersion(ctx, req.(*Empty))
+		return srv.(TrackerServiceServer).GetServiceVersion(ctx, req.(*EmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TrackerService_RegisterLabCreation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Lab)
+	in := new(RegisterLabRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -492,13 +623,13 @@ func _TrackerService_RegisterLabCreation_Handler(srv interface{}, ctx context.Co
 		FullMethod: "/tracker_server.TrackerService/RegisterLabCreation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TrackerServiceServer).RegisterLabCreation(ctx, req.(*Lab))
+		return srv.(TrackerServiceServer).RegisterLabCreation(ctx, req.(*RegisterLabRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TrackerService_GetRegisteredLabs_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Empty)
+	m := new(EmptyRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -506,7 +637,7 @@ func _TrackerService_GetRegisteredLabs_Handler(srv interface{}, stream grpc.Serv
 }
 
 type TrackerService_GetRegisteredLabsServer interface {
-	Send(*Lab) error
+	Send(*RegisteredLab) error
 	grpc.ServerStream
 }
 
@@ -514,7 +645,7 @@ type trackerServiceGetRegisteredLabsServer struct {
 	grpc.ServerStream
 }
 
-func (x *trackerServiceGetRegisteredLabsServer) Send(m *Lab) error {
+func (x *trackerServiceGetRegisteredLabsServer) Send(m *RegisteredLab) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -538,5 +669,5 @@ var _TrackerService_serviceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "tracker.proto",
+	Metadata: "tracker_server/tracker.proto",
 }

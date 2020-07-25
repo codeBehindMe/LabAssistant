@@ -21,33 +21,17 @@
   Contact: github.com/codeBehindMe
 */
 
-package api_server
+package utils
 
 import (
-	"com.github.com/codeBehindMe/LabAssistant/lab"
-	"com.github.com/codeBehindMe/LabAssistant/utils"
-	"fmt"
-	"log"
-	"net/http"
+	"encoding/json"
+	"io"
 )
 
-func baseHandler(w http.ResponseWriter, r *http.Request) {
-	_, _ = fmt.Fprint(w, "Application: Api Server")
-}
-
-func version(w http.ResponseWriter, r *http.Request) {
-	version, err := utils.ReadFileToString("VERSION")
-	if err != nil {
-		log.Fatalf("Error occured: %v", err)
-	}
-	_, _ = fmt.Fprint(w, version)
-}
-
-// newLab creates a new Lab.
-func newLab(w http.ResponseWriter, r *http.Request) {
-	newLab := &lab.Lab{}
-	err := utils.LoadJsonToStruct(r.Body, newLab)
-	if err != nil {
-		log.Fatalf("Error occured whilst extracting payload: %v", err)
-	}
+// FIXME: Requires thoughtful test or function redefinition.
+// LoadJsonToStruct loads json data into a structure. Pointer to a structure
+// should be passed in as parameter t.
+func LoadJsonToStruct(r io.ReadCloser, t interface{}) error{
+	decoder := json.NewDecoder(r)
+	return decoder.Decode(t)
 }

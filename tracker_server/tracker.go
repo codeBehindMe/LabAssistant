@@ -35,8 +35,8 @@ type TrackerServer struct {
 	addr string
 }
 
-func (t *TrackerServer) GetRegisteredLabs(empty *Empty, server TrackerService_GetRegisteredLabsServer) error {
-	err := server.Send(&Lab{})
+func (t *TrackerServer) GetRegisteredLabs(empty *EmptyRequest, server TrackerService_GetRegisteredLabsServer) error {
+	err := server.Send(&RegisteredLab{})
 	if err != nil {
 		return err
 	}
@@ -47,18 +47,18 @@ func New(addr string) *TrackerServer {
 	return &TrackerServer{addr: addr}
 }
 
-func (t *TrackerServer) GetServiceVersion(ctx context.Context, e *Empty) (*ServiceVersionInfo, error) {
+func (t *TrackerServer) GetServiceVersion(ctx context.Context, e *EmptyRequest) (*ServiceVersionResponse, error) {
 	log.Printf("Received request for version info from client")
 	version, err := utils.GetDistributionVersion()
 	if err != nil {
 		log.Fatalf("Error while getting version info: %v", err)
 	}
-	return &ServiceVersionInfo{
+	return &ServiceVersionResponse{
 		Version: version,
 	}, nil
 }
 
-func (t *TrackerServer) RegisterLabCreation(ctx context.Context, l *Lab) (*SuccessfulOperation, error) {
+func (t *TrackerServer) RegisterLabCreation(ctx context.Context, l *RegisteredLab) (*SuccessfulOperation, error) {
 	log.Printf("Received request for registration of lab creation from client")
 	return &SuccessfulOperation{
 		Code: 0,

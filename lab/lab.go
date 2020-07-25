@@ -21,33 +21,8 @@
   Contact: github.com/codeBehindMe
 */
 
-package api_server
+package lab
 
-import (
-	"com.github.com/codeBehindMe/LabAssistant/lab"
-	"com.github.com/codeBehindMe/LabAssistant/utils"
-	"fmt"
-	"log"
-	"net/http"
-)
-
-func baseHandler(w http.ResponseWriter, r *http.Request) {
-	_, _ = fmt.Fprint(w, "Application: Api Server")
-}
-
-func version(w http.ResponseWriter, r *http.Request) {
-	version, err := utils.ReadFileToString("VERSION")
-	if err != nil {
-		log.Fatalf("Error occured: %v", err)
-	}
-	_, _ = fmt.Fprint(w, version)
-}
-
-// newLab creates a new Lab.
-func newLab(w http.ResponseWriter, r *http.Request) {
-	newLab := &lab.Lab{}
-	err := utils.LoadJsonToStruct(r.Body, newLab)
-	if err != nil {
-		log.Fatalf("Error occured whilst extracting payload: %v", err)
-	}
+type Lab struct {
+	Name string
 }
