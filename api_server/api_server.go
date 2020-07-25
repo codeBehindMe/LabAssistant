@@ -34,6 +34,7 @@ import (
 
 type ApiServer struct {
 	addr   string
+	trackerAddr string
 	router *mux.Router
 }
 
@@ -43,17 +44,9 @@ func New() ApiServer {
 	server.router = mux.NewRouter()
 	server.router.HandleFunc("/", baseHandler)
 	server.router.HandleFunc("/version", version)
+	server.router.HandleFunc("/newlab", server.NewLab)
 
 	return server
-}
-
-func GetApiServerRouter() *mux.Router {
-	router := mux.NewRouter()
-
-	router.HandleFunc("/", baseHandler)
-	router.HandleFunc("/version", version)
-
-	return router
 }
 
 func (s ApiServer) Serve() {

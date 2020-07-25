@@ -58,9 +58,9 @@ func (t *TrackerServer) GetServiceVersion(ctx context.Context, e *EmptyRequest) 
 	}, nil
 }
 
-func (t *TrackerServer) RegisterLabCreation(ctx context.Context, l *RegisteredLab) (*SuccessfulOperation, error) {
+func (t *TrackerServer) RegisterLabCreation(ctx context.Context, l *RegisterLabRequest) (*RegisterLabResponse, error) {
 	log.Printf("Received request for registration of lab creation from client")
-	return &SuccessfulOperation{
+	return &RegisterLabResponse{
 		Code: 0,
 	}, nil
 }
