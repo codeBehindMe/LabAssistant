@@ -25,11 +25,8 @@ package api_server
 
 import (
 	"com.github.com/codeBehindMe/LabAssistant/lab"
-	"com.github.com/codeBehindMe/LabAssistant/tracker_server"
 	"com.github.com/codeBehindMe/LabAssistant/utils"
-	"context"
 	"fmt"
-	"google.golang.org/grpc"
 	"log"
 	"net/http"
 )
@@ -61,13 +58,4 @@ func (s *ApiServer) NewLab(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error occured whilt extracting payload: %v", err)
 		return
 	}
-
-	conn, err := grpc.Dial(s.trackerAddr, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("Error while connecting to tracker: %v", err)
-	}
-
-	trc := tracker_server.NewTrackerServiceClient(conn)
-	lab := &tracker_server.RegisterLabRequest{Name: newLab.Name}
-	trc.RegisterLabCreation(context.Background(), lab)
 }
